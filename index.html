@@ -69,25 +69,6 @@
   <link rel='preload' as='script' href='main.js'>
   <script defer src='main.js'></script>  <!-- <script defer src=''></script> --> <!-- NOTE! JS in the HTML document (apparently) cannot depend of defer'ed or async'd JS -->  <!-- NOTE! If you include this before the HTML, then some DOM elements are not detected (notable, flashes and forms) -->
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src='https://www.googletagmanager.com/gtag/js?id=G-CMHKKV2BYM'></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-CMHKKV2BYM');
-  </script>
-
-  <!-- 
-  img1f: https://unsplash.com/photos/vWfKaO0k9pc
-  img20: https://unsplash.com/photos/bJhT_8nbUA0
-  img21: https://unsplash.com/photos/OaAB-eYwmUU
-  img22: https://unsplash.com/photos/fNUNt9w3m-Q
-  img23: https://www.pexels.com/photo/assorted-food-products-displayed-in-a-store-7317603/
-  img24: https://unsplash.com/photos/YUDohNsfhDI
-  img25: https://www.pexels.com/photo/booth-branding-business-buy-264636/
-  img26: https://www.pexels.com/photo/brown-bread-on-green-plastic-tray-3735152/
-  -->
   <style>
   :root{
     --light:     #f0f2f5;
@@ -138,6 +119,9 @@
   *,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; }
   a{  color:var(--fg); text-decoration:none; }
   strong, b, .b{  font-weight:900; color:var(--dark2); }
+  .red{   color:var(--re); }
+  .green{ color:var(--green); }
+  .blue{  color:var(--blue); }
 
   /*----------------------------------------------------------------*/
   html{ visibility:hidden; line-height:1; -webkit-text-size-adjust:100%; }
@@ -235,7 +219,7 @@
   /*tbody tr:active{ box-shadow:0px 0px 4px 1px #00000040; animation:anim_btn_active 0.1s linear 0s 1 normal forwards; }*/  /*transform:translate3d(0px,0px,0px);*/
   /*tbody .link:hover{ background-color:var(--light-grey); }*/
 
-  footer{ display:flex; justify-content:space-between; align-items:center; flex-flow:row wrap; width:100%; background-color:var(--light-blue); color:var(--fg); padding:0em 0 4em 0; box-shadow:0px 0px 4px 1px #00000020; border-style:solid none solid none; border-width:1px; border-color:var(--lgrey); }
+  footer{ display:flex; flex-flow:row wrap; justify-content:space-between; align-items:center; width:100%; background-color:var(--light-blue); color:var(--fg); padding:0em 0 4em 0; box-shadow:0px 0px 4px 1px #00000020; border-style:solid none solid none; border-width:1px; border-color:var(--lgrey); }
 
   .tooltip{                position:relative; }
   .tooltip       .content{ z-index:103; display:none; position:absolute; background-color:var(--light-blue); min-width:16em; overflow-wrap:break-word; box-shadow:0px 0px 8px 0px #00000040; border-radius:0.4em; padding:0.5em; text-align:left; }  /*word-wrap is deprecated in favor of overflow-wrap? see word-break also*/
@@ -269,7 +253,7 @@
   /*----------------------------------------------------------------*/
   @media(max-width:1024px){  /*992px*/
     h1{ font-size:8em; }
-    .quad{ width:100%; }
+    .quad{ width:100%; height:100vw; }
     .swap{ order:-1; }
     #discover_filters{ width:100%; }
   }
@@ -307,10 +291,11 @@
     </a>
     <div style='display:flex; align-items:center;'>
       <svg id='' class='spinner' viewBox='0 0 100 100' style='width:1.5em; visibility:hidden;'><circle  cx='50' cy='50' r='40'/></svg>
-      <a class='item {% if url=='/store'    %}item_hover{% endif %}' href='/'>Imprenta</a>
-      <a class='item {% if url=='/store'    %}item_hover{% endif %}' href='/'>Biblias</a>
-      <a class='item {% if url=='/store'    %}item_hover{% endif %}' href='/'>Agendas</a>
-      <a class='item {% if url=='/discover' %}item_hover{% endif %}' href='/'>Polos</a>
+      <a class='item {% if url=='/store'    %}item_hover{% endif %}' href='data/baml.pdf'>Biblias</a>
+      <a class='item {% if url=='/store'    %}item_hover{% endif %}' href='data/cursos.pdf'>Cursos</a>
+      <a class='item {% if url=='/store'    %}item_hover{% endif %}' href='data/polos.pdf'>Polos</a>
+      <a class='item {% if url=='/discover' %}item_hover{% endif %}' href='data/imprenta.pdf'>Imprenta</a>
+      <a class='item {% if url=='/discover' %}item_hover{% endif %}' href='data/trofeos.pdf'>Trofeos</a>
       <i id='navbar_icon' style='margin:0 1em 0 0.75em;' class='fa fa-bars action' onclick='sidebar_toggle()'></i>
     </div>
   </nav>
@@ -328,10 +313,11 @@
       </div>
 
       <div style='margin:2em 0 0 0;'></div>
-      <a class='item {% if page=='/store'    %}item_hover{% endif %}' href='/'><i class='icon fa fa-book'></i>Imprenta</a>
-      <a class='item {% if page=='/store'    %}item_hover{% endif %}' href='/'><i class='icon fa fa-bible'></i>Biblias</a>
-      <a class='item {% if page=='/store'    %}item_hover{% endif %}' href='/'><i class='icon fa fa-tag'></i>Agendas</a>
-      <a class='item {% if page=='/discover' %}item_hover{% endif %}' href='/'><i class='icon fa fa-server'></i>Polos</a>
+      <a class='item {% if page=='/store'    %}item_hover{% endif %}' href='data/baml.pdf'><i class='icon fa fa-book'></i>Biblias</a>
+      <a class='item {% if page=='/store'    %}item_hover{% endif %}' href='data/cursos.pdf'><i class='icon fa fa-bible'></i>Cursos</a>
+      <a class='item {% if page=='/store'    %}item_hover{% endif %}' href='data/polos.pdf'><i class='icon fa fa-tag'></i>Polos</a>
+      <a class='item {% if page=='/discover' %}item_hover{% endif %}' href='data/imprenta.pdf'><i class='icon fa fa-server'></i>Imprenta</a>
+      <a class='item {% if page=='/discover' %}item_hover{% endif %}' href='data/trofeos.pdf'><i class='icon fa fa-server'></i>Trofeos</a>
     </div>
     <div>
       <a class='item b' style='display:flex; justify-content:center; align-items:center; padding-left:0;' href='/store'><img src='favicon.png' alt='logo' style='height:1.5em; width:1.5em;'>COSEFEL</a>
@@ -343,7 +329,6 @@
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <div class='banner' style='margin:3.5em 0 0 0; background-image:url("data/logo_final.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'>
     <!-- <a href='/' class='txt_anim00' style='width:100%; overflow-wrap:break-word;'><h1 class='strokew' style='color:var(--black); font-weight:900; text-align:center;'>COSEFEL</h1></a> -->
-    <!-- <a href='/' class='txt_anim00' style='width:100%; overflow-wrap:break-word;'><h1 class='strokeb' style='color:var(--white); font-weight:900; text-align:center;'>{{profiles_idim}}M TIKTOK INFLUENCERS</h1></a> -->
   </div>
 
 
@@ -351,51 +336,51 @@
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <div class='row'>
     <div class='quad' style='display:flex; justify-content:center; flex-flow:column wrap;' id='discover'>
-      <a href='/' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-server'></i> Imprenta</h2></a>
+      <a href='data/baml.pdf' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-server'></i> Biblias</h2></a>
       <h3 style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Agendas, Biblias, manuales, libros</h3>
-      <a href='/' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
+      <a href='data/baml.pdf' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
     </div>
-    <a href='/' class='quad' style='background-image:url("data/bmla.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
+    <a href='data/baml.pdf' class='quad' style='background-image:url("data/baml.jpg"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
   </div>
 
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <div class='row'>
-    <a href='/' class='quad' style='background-image:url("data/cuadro.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
+    <a href='data/cursos.pdf' class='quad' style='background-image:url("data/cursos.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
     <div class='quad swap' style='display:flex; justify-content:center; flex-flow:column wrap;'>
-      <a href='/' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-chevron-circle-up'></i> Cursos</h2></a>
+      <a href='data/cursos.pdf' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-chevron-circle-up'></i> Cursos</h2></a>
       <h3 style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Cursos de verano</h3>
-      <a href='/' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
+      <a href='data/cursos.pdf' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
     </div>
   </div>
 
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <div class='row'>
     <div class='quad' style='display:flex; justify-content:center; flex-flow:column wrap;' id='discover'>
-      <a href='/' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-server'></i> Polos</h2></a>
-      <h3 style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Polos <span class='b'>cristianos</span> con diseño personalizado</h3>
-      <a href='/' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
+      <a href='data/polos.pdf' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-server'></i> Polos</h2></a>
+      <h3 style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Polos <strong>cristianos</strong> con diseño personalizado</h3>
+      <a href='data/polos.pdf' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
     </div>
-    <a href='/' class='quad' style='background-image:url("data/diseno_polos.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
+    <a href='data/polos.pdf' class='quad' style='background-image:url("data/polos.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
   </div>
 
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <div class='row'>
-    <a href='/' class='quad' style='background-image:url("data/imprenta.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
+    <a href='data/imprenta.pdf' class='quad' style='background-image:url("data/imprenta.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
     <div class='quad swap' style='display:flex; justify-content:center; flex-flow:column wrap;'>
-      <a href='/' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-chevron-circle-up'></i> Imprenta</h2></a>
-      <h3 style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Trabajos de <span class='b'>imprenta</span> autorizados por <span class='b'>SUNAT</span></h3>
-      <a href='/' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
+      <a href='data/imprenta.pdf' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-chevron-circle-up'></i> Imprenta</h2></a>
+      <h3 style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Trabajos de <strong>imprenta</strong> autorizados por <strong>SUNAT</strong></h3>
+      <a href='data/imprenta.pdf' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
     </div>
   </div>
 
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <div class='row'>
     <div class='quad' style='display:flex; justify-content:center; flex-flow:column wrap;' id='discover'>
-      <a href='/' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-server'></i> Trofeos</h2></a>
+      <a href='data/trofeos.pdf' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-server'></i> Trofeos</h2></a>
       <h3 style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Trofeos y platos recordatorios</h3>
-      <a href='/' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
+      <a href='data/trofeos.pdf' class='btn_primary banner_btn' style='margin:1em auto 0 auto;'>ver</a>
     </div>
-    <a href='/' class='quad' style='background-image:url("data/trofeos_diseno.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
+    <a href='data/trofeos.pdf' class='quad' style='background-image:url("data/trofeos.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
   </div>
 
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
@@ -403,43 +388,45 @@
     <a class='quad' style='background-image:url("data/logo_final.png"); background-position:center center; background-size:contain; background-repeat:no-repeat;'></a>
     <div class='quad swap' style='display:flex; justify-content:center; flex-flow:column wrap;'>
       <a href='https://www.facebook.com/etenaelguera' target='_blank' class='txt_anim00'><h2 style='text-align:center; font-weight:900; color:var(--dark1);'><i class='fa fa-server'></i> Contacto</h2></a>
-      <h3 href='https://www.facebook.com/etenaelguera' target='_blank' style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Alguna pregunta?<br>Algún <strong>pedido especial</strong>?<br>Contáctenos en <a href='https://www.facebook.com/etenaelguera' style='color:var(--dark1);'>Facebook</a> <a class='b' href='https://www.facebook.com/etenaelguera' target='_blank'>@etenaelguera</a> o al <span class='b'>+51 990360706</span></h3>
+      <h3 href='https://www.facebook.com/etenaelguera' target='_blank' style='color:var(--dark2); margin:1em 0.5em 0 0.5em;'>Alguna pregunta?<br>Algún <strong>pedido especial</strong>?<br>Contáctenos en Facebook <a class='b blue' href='https://www.facebook.com/etenaelguera' target='_blank'>@etenaelguera</a> o al <span class='b'>+51 990360706</span></h3>
     </div>
   </div>
-
-
-
-  <!-- ----------------------------------------------------------------------------------------------------------------------- -->
-  <!-- ----------------------------------------------------------------------------------------------------------------------- -->
-  <div style='width:100%; text-align:center;'>
-  <iframe src='data/panel_sin_flecha.pdf' style='width:50%; height:75vh;'></iframe>
 
 
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <div class='row'>
-    <div style='display:flex; width:75%;'>
-      <div style='margin:7em 0 7em 0; text-align:left;'>
-        <h3 class='b' style='margin:0em 0 0 0;'>&#8226;Trabajos de imprenta autorizados por <span style='color:var(--blue);'>SUNAT</span></h3>
-        <h3 class='b' style='margin:0em 0 0 0;'>&#8226;<span style='color:var(--blue);'>Polos cristianos</span> con diseño personalizado</h3>
+    <div style='display:flex; flex-flow:row wrap; margin:0em 0 16em 0; width:80%; text-align:left;'>
+      <h3 class='b' style='margin:0em 0 0 0;'>&#8226; Trabajos de imprenta autorizados por <span style='color:var(--blue);'>SUNAT</span></h3>
+      <h3 class='b' style='margin:0em 0 0 0;'>&#8226; <span style='color:var(--blue);'>Polos cristianos</span> con diseño personalizado</h3>
 
-        <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; No cumbersome registration process, no credit card required.</h3> -->
-        <!-- <h3 class='b' style='margin:0em 0 0 0;'>&#8226; <strong style='color:var(--blue);'>Discover</strong> {{profiles_idim}}M TikTok influencers</h3> -->
-        <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; <strong style='color:var(--blue);'>Visualize</strong> {{profiles_idim*10}}M historical data points</h3> -->
-        <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; Find the ideal influencer for your <strong style='color:var(--blue);'>influencer marketing</strong> campaigns</h3> -->
-        <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; The <strong style='color:var(--blue)'>largest</strong> TikTok profile dataset outside TikTok (that we know of)</h3> -->
-        <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; Visualize TikTok <strong style='color:var(--blue)'>analytics</strong>.</h3> -->
+      <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; No cumbersome registration process, no credit card required.</h3> -->
+      <!-- <h3 class='b' style='margin:0em 0 0 0;'>&#8226; <strong style='color:var(--blue);'>Discover</strong> {{profiles_idim}}M TikTok influencers</h3> -->
+      <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; <strong style='color:var(--blue);'>Visualize</strong> {{profiles_idim*10}}M historical data points</h3> -->
+      <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; Find the ideal influencer for your <strong style='color:var(--blue);'>influencer marketing</strong> campaigns</h3> -->
+      <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; The <strong style='color:var(--blue)'>largest</strong> TikTok profile dataset outside TikTok (that we know of)</h3> -->
+      <!-- <h3 class='b' style='margin:1em 0 0 0;'>&#8226; Visualize TikTok <strong style='color:var(--blue)'>analytics</strong>.</h3> -->
 
-        <div style='width:100%; text-align:center;'>
-          <a href='/' class='btn_primary banner_btn' style='margin:2em 0 0 0;'>ver</a>
-        </div>
+      <!-- <div style='width:100%; text-align:center;'>
+        <a href='/' class='btn_primary banner_btn' style='margin:2em 0 0 0;'>ver</a>
+      </div> -->
     </div>
   </div>
 
 
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <!-- ----------------------------------------------------------------------------------------------------------------------- -->
-  <footer>
+  <div class='row' style='position:relative; height:90vh;'>
+    <div style='width:64em; max-width:95%; height:100%; overflow-x:hidden; overflow-y:scroll;'>
+      <a href='data/panel_sin_flecha.pdf' target='_blank'><img alt='COSAFEL: imprenta, impresiones, copias, scaneos, espiralados, enmicados, utiles de escritorio en general, regalos, tarjetas pesonales' title='' src='data/panel_sin_flecha.png' style='width:100%; object-fit:contain;'></a>
+    </div>
+    <!-- <div style='width:64em; max-width:100%; height:100%; overflow-y:auto; background-image:url("data/panel_sin_flecha.png"); background-position:0% 0%; background-size:cover; background-repeat:no-repeat;'></div> -->
+  </div>
+
+
+  <!-- ----------------------------------------------------------------------------------------------------------------------- -->
+  <!-- ----------------------------------------------------------------------------------------------------------------------- -->
+  <footer style='margin:8em 0 0 0;'>
     <!-- ----------------------------------------------------------------------------------------------------------------------- -->
     <div style='margin:2em 1em 0 1em;'>
       <a href='/' style='display:flex;'>
@@ -456,11 +443,12 @@
     <div style='display:flex; margin:2em 1em 0 1em;'>
       <div style='margin:0 0 0 0em;'>
         <div style='font-weight:900;'>Links</div>
-        <a class='link' style='display:block; margin:2em 0 0 0;' href='https://www.facebook.com/etenaelguera/'>Facebook</a>
+        <a class='link' style='display:block; margin:2em 0 0 0;' href='https://www.facebook.com/etenaelguera/' target='_blank'>Facebook</a>
       </div>
       <div style='margin:0 0 0 2em;'>
         <div style='font-weight:900;'>Contacto</div>
-        <a class='link' style='display:block; margin:2em 0 0 0;' href='mailto:info@socialbe.org?subject=Inquiry' target='_blank'>edmundo@cosefel.com</a>
+        <!-- <a class='link' style='display:block; margin:2em 0 0 0;' href='mailto:etena@cosefel.com?subject=Inquiry' target='_blank'>etena@cosefel.com</a> -->
+        <a class='link' style='display:block; margin:2em 0 0 0;' target='_blank'>+51 990360706</a>
       </div>
     </div>
     <!-- ----------------------------------------------------------------------------------------------------------------------- -->
